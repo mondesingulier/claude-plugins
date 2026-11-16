@@ -1,0 +1,12 @@
+{
+  "name": "monde-singulier",
+  "owner": { "name": "Monde Singulier" },
+  "metadata": { "description": "Monde Singulier skills for Claude: how we work with the dashboard, the catalogue and the store." },
+  "plugins": [
+    {
+      "name": "monde-singulier",
+      "source": "./plugins/monde-singulier",
+      "description": "Monde Singulier team skills: catalogue (dashboard first, Shopify is a copy), more to come."
+    }
+  ]
+}
