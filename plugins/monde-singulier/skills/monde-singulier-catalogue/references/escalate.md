@@ -17,7 +17,7 @@
 - Deleting a piece, a collection or a designer (no tool on purpose).
 - More than 20 pieces changed at once without a dry run reviewed by a person. The connector stops itself past 300 pieces an hour for everyone.
 - VAT, invoices, credit notes, orders, payments, quotes, customers, transport, costs, margins, purchase prices, designer terms, commissions: not in the connector, and money rules are an Admin's.
-- A Vestige price change (its store price is held by the store, D63).
+- A Vestige price change (its store price is held by the store).
 - A need that no tool covers. Don't route it through the Shopify connector.
 
 ## When a tool refuses
@@ -35,7 +35,7 @@ A refusal is the dashboard answering: follow it. A refusal is never a reason to 
 | Reserved tag in `extraTags` | Pick a free tag (recipe 10) |
 | French SEO title while the English one is empty | Write the English SEO title first |
 | Price moves by more than 30 % | Ask the person to confirm the jump; often a typo |
-| "Too many changes through Claude for now (60 a minute; dry runs do not count): try again in N s" | Wait N seconds, then continue |
+| "Too many changes through Claude for now (60 changes a minute, 600 an hour; dry runs count as reads, not changes): try again in N s" | Wait N seconds, then continue |
 | "At most 5 photos of more than 3 MB per call" | Send the rest in another call |
 | A photo address cannot be read (login, web page, not HTTPS) | Ask for the file's own public address, or the drop box |
 | Claude connector stopped (by its breaker or an Admin) | An Admin turns it back on in Settings › Claude connections; tell an Admin and wait |

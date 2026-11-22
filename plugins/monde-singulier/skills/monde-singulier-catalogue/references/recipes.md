@@ -100,16 +100,16 @@ Every write below is: dry run, show the plan to the person, explicit yes, then t
 
 A page that is not a designer, a collection of the dashboard or The Vestige (a theme, an edit, a gift selection) can be made in Shopify: the dashboard does not manage such pages. In this order:
 
-1. `list_store_collections`: what already exists, and whether a rule uses a reserved tag.
+1. `list_store_collections` (unmanaged ones by default): what already exists, and whether any shows `orphanReservedTag: true`.
 2. Choose a **free tag**: no comma, no space at the ends, and none reserved. Reserved (refused, the dashboard computes and rewrites them on every send): prefixes `cat:`, `type:`, `col:`, `designer:`, `year:`, `decade:`, `vx-d-`, `vx-o-`, `vx-m-`, `vx-cat-`, `vx-dec-`, `vx-fam-`; exact tags `created-for-ms`, `in-stock`, `unique-piece`, `limited-edition`, `new-in`, `showroom-rivoli`, `ms-editions`, `the vestige`, `vx`, `vx-1stdibs`, and `trade`. Example: `walnut-edit-2026`.
 3. In Shopify (Shopify connector or admin): create an **automatic** collection whose rule is "product tag equals" that free tag, with its title, text and image. Never a manual collection, never a rule on a reserved tag.
 4. Put the tag on the pieces with the **dashboard**: `get_piece`, then `update_piece` with `fields.extraTags` = the piece's current free tags plus the new one (the list sent replaces them). Dry run, yes, apply; one piece per call. Never tag the products in Shopify: the next send would remove the tag.
-5. A minute later, check the page with the Shopify connector (collection products) and `list_store_collections` (product count, no `usesReservedTag`).
+5. A minute later, check the page with the Shopify connector (collection products) and `list_store_collections`: the new collection must be listed as `source: "unmanaged"` with `orphanReservedTag: false` and the expected product count. If it shows `orphanReservedTag: true`, its rule is on a reserved tag: change the rule to the free tag.
 6. To take a piece out, `update_piece` without that tag. Menu or page links to the collection: Shopify connector.
 
 ## 11. A difference or conflict between the store and the dashboard
 
-1. `list_drifts` (one piece or all), `get_sync_status`, or `store_drift_report` for the store side (unmanaged collections on reserved tags, store products not linked to the dashboard).
+1. `list_drifts` (one piece or all), `get_sync_status`, or `store_drift_report` for the store side (`orphanReservedTagCollections`, `bornInShopify`, `staleOpenAlerts`). Lines counted in `adoptedUnderReview` are not stale: do not `resolve_conflict` them, they protect the images of pieces adopted from the store.
 2. A change made in Shopify on a field the dashboard did not touch is usually taken back by itself. A product created in Shopify waits for a person. A deletion in Shopify is only reported.
 3. A line that is not a conflict: after the person has looked, `resolve_conflict` with a short `reason`.
 4. A **conflict** (both sides changed the same field) is a human choice on **Catalogue › Shopify sync**, by someone with the right to publish. The connector cannot choose; show both values if you have them and send the person there.
